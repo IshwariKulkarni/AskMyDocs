@@ -131,6 +131,13 @@ askmydocs/
 
 ---
 
+## Screenshots
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ace8e84d-04f8-4f35-9c2c-97669405f3af" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/fdec328f-8bc5-4993-9e1d-cffa2bad0504" />
+
+
+
 ## Future improvements
 
 - [ ] Show which page/section of the PDF the answer came from
@@ -143,4 +150,4 @@ askmydocs/
 
 ## Author
 
-Ishwari Kulkarni — [LinkedIn](https://www.linkedin.com/in/ishwari-kulkarni-2a87b9207/)t
+Ishwari Kulkarni — [LinkedIn](https://www.linkedin.com/in/ishwari-kulkarni-2a87b9207/)
