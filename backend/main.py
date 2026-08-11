@@ -40,7 +40,15 @@ async def ask_question(body: dict):
     relevant_chunks = db.similarity_search(question, k=3)
     context = "\n\n".join([chunk.page_content for chunk in relevant_chunks])
 
-    prompt = f"""Use the following context from a document to answer the question.
+    # DEBUG PRINTS
+    print("=" * 40)
+    print("USER QUESTION:", question)
+    print("RETRIEVED CONTEXT:\n", context)
+    print("=" * 40)
+
+    prompt = f"""You are a helpful assistant reading a document. Use the provided context to answer the user's question. 
+If the question is a greeting or general query (like "can you help me?"), acknowledge it and invite them to ask specific 
+questions about the document content. Use the following context from a document to answer the question.
 If the answer is not in the context, say "I couldn't find that in the document."
 
 Context:
@@ -50,6 +58,6 @@ Question: {question}
 
 Answer:"""
 
-    llm = OllamaLLM(model="qwen3:0.6b")
+    llm = OllamaLLM(model="phi3", temperature=0)
     answer = llm.invoke(prompt)
     return {"answer": answer}
