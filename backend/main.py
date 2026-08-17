@@ -6,6 +6,7 @@ from langchain_ollama import OllamaEmbeddings, OllamaLLM
 from langchain_community.vectorstores import Chroma
 from langchain_core.prompts import PromptTemplate
 import shutil, os
+import ollama 
 
 app = FastAPI()
 
@@ -37,6 +38,7 @@ async def ask_question(body: dict):
         return {"answer": "Please upload a PDF first."}
 
     question = body["question"]
+    model_name = body.get("model", "phi3")
     relevant_chunks = db.similarity_search(question, k=3)
     context = "\n\n".join([chunk.page_content for chunk in relevant_chunks])
 
@@ -58,6 +60,38 @@ Question: {question}
 
 Answer:"""
 
-    llm = OllamaLLM(model="phi3", temperature=0)
-    answer = llm.invoke(prompt)
-    return {"answer": answer}
+    # llm = OllamaLLM(model="phi3", temperature=0)
+    # answer = llm.invoke(prompt)
+    # return {"answer": answer}
+
+    response = ollama.generate(
+        model = model_name,
+        prompt = prompt,
+        options = {"temperature":0}
+    )
+
+    total_duration_ms = response.get("total_duration", 0) / 1_000_000
+    load_duration_ms = response.get("load_duration", 0) / 1_000_000
+    prompt_eval_duration_ms = response.get("prompt_eval_duration", 0) / 1_000_000
+    eval_duration_ms = response.get("eval_duration", 0) / 1_000_000
+    prompt_tokens = response.get("prompt_eval_count", 0)
+    output_tokens = response.get("eval_count", 0)
+
+    tokens_per_second = (
+        output_tokens / (eval_duration_ms / 1000)
+        if eval_duration_ms > 0 else 0
+    )
+
+    return {
+        "answer": response["response"],
+        "model": model_name,
+        "metrics": {
+            "total_duration_ms": round(total_duration_ms, 2),
+            "load_duration_ms": round(load_duration_ms, 2),
+            "prompt_eval_duration_ms": round(prompt_eval_duration_ms, 2),
+            "generation_duration_ms": round(eval_duration_ms, 2),
+            "prompt_tokens": prompt_tokens,
+            "output_tokens": output_tokens,
+            "tokens_per_second": round(tokens_per_second, 2)
+        }
+    }

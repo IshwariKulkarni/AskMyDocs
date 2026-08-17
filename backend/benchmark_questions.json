@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "document": "apple-q3-fy2025-press-release.pdf",
+    "category": "factual",
+    "question": "What was Apple's total revenue in Q3 fiscal 2025?",
+    "expected_answer": "$94.0 billion (specifically $94,036 million)",
+    "page": 1
+  },
+  {
+    "id": 2,
+    "document": "apple-q3-fy2025-press-release.pdf",
+    "category": "factual",
+    "question": "What was Apple's diluted earnings per share in Q3 fiscal 2025?",
+    "expected_answer": "$1.57",
+    "page": 1
+  },
+  {
+    "id": 3,
+    "document": "apple-q3-fy2025-press-release.pdf",
+    "category": "factual",
+    "question": "What dividend did Apple's board declare, and when is it payable?",
+    "expected_answer": "$0.26 per share, payable August 14, 2025",
+    "page": 1
+  },
+  {
+    "id": 4,
+    "document": "apple-q3-fy2025-press-release.pdf",
+    "category": "factual",
+    "question": "What was Apple's net income for Q3 fiscal 2025?",
+    "expected_answer": "$23,434 million",
+    "page": 1
+  },
+  {
+    "id": 5,
+    "document": "apple-q3-fy2025-press-release.pdf",
+    "category": "factual",
+    "question": "What was Apple's iPhone revenue in Q3 fiscal 2025?",
+    "expected_answer": "$44,582 million",
+    "page": 1
+  },
+  {
+    "id": 6,
+    "document": "apple-q3-fy2025-press-release.pdf",
+    "category": "comparison",
+    "question": "How did Apple's Q3 fiscal 2025 total net sales compare to Q3 fiscal 2024?",
+    "expected_answer": "$94,036 million in Q3 FY2025 vs $85,777 million in Q3 FY2024, an increase of about 10%",
+    "page": 1
+  },
+  {
+    "id": 7,
+    "document": "apple-q3-fy2025-press-release.pdf",
+    "category": "comparison",
+    "question": "Which grew faster year-over-year in Q3 fiscal 2025: Services revenue or Products revenue?",
+    "expected_answer": "Services revenue grew faster, from $24,213M to $27,423M (about 13%), versus Products revenue growing from $61,564M to $66,613M (about 8%)",
+    "page": 1
+  },
+  {
+    "id": 8,
+    "document": "apple-q3-fy2025-press-release.pdf",
+    "category": "summary",
+    "question": "Summarize the key highlights of Apple's Q3 fiscal 2025 results according to the press release.",
+    "expected_answer": "Record June quarter total company revenue, iPhone revenue, and EPS; Services revenue reached an all-time high; revenue of $94.0 billion, up 10% YoY; diluted EPS of $1.57, up 12% YoY",
+    "page": 1
+  },
+  {
+    "id": 9,
+    "document": "apple-q3-fy2025-press-release.pdf",
+    "category": "multi-hop",
+    "question": "What was Apple's total cash, cash equivalents and marketable securities (current + non-current) as of June 28, 2025?",
+    "expected_answer": "Cash and cash equivalents ($36,269M) plus current marketable securities ($19,103M) plus non-current marketable securities ($77,614M) = $132,986 million",
+    "page": 2
+  },
+  {
+    "id": 10,
+    "document": "apple-q3-fy2025-press-release.pdf",
+    "category": "unanswerable",
+    "question": "How many iPhones did Apple sell in Q3 fiscal 2025?",
+    "expected_answer": "Not mentioned in the document (only revenue by category is given, not unit counts)",
+    "page": null
+  },
+  {
+    "id": 11,
+    "document": "apple-q3-fy2025-press-release.pdf",
+    "category": "unanswerable",
+    "question": "Who is Apple's Chief Marketing Officer?",
+    "expected_answer": "Not mentioned in the document",
+    "page": null
+  },
+  {
+    "id": 12,
+    "document": "apple-q3-fy2025-press-release.pdf",
+    "category": "unanswerable",
+    "question": "What is Apple's projected revenue for Q4 fiscal 2025?",
+    "expected_answer": "Not mentioned in the document (no forward guidance figures are given)",
+    "page": null
+  }
+]
