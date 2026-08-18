@@ -184,3 +184,59 @@ So, Apple's total cash, cash equivalents, and marketable securities (current + n
 4,2026-08-18T11:32:58.646264+00:00,v2_type_guard,llama3.2:3b,10,unanswerable,How many iPhones did Apple sell in Q3 fiscal 2025?,"Not mentioned in the document (only revenue by category is given, not unit counts)","I couldn't find that in the document. The document mentions the number of iPhones sold in the previous quarter (Q3 fiscal 2024) and the total number of iPhones sold for the nine months ended June 28, 2025, but it does not provide the exact number of iPhones sold in Q3 fiscal 2025.",17130.19,426.16,4106.81,12542.77,725,69,5.5,False,6916.1,7043.3,6985.9,127.2,87.0,
 5,2026-08-18T11:33:27.702612+00:00,v2_type_guard,qwen2.5:3b,9,multi-hop,"What was Apple's total cash, cash equivalents and marketable securities (current + non-current) as of June 28, 2025?","Cash and cash equivalents ($36,269M) plus current marketable securities ($19,103M) plus non-current marketable securities ($77,614M) = $132,986 million","I couldn't find that in the document. The document provides information about Apple's current assets and non-current assets, but it does not provide a total for cash, cash equivalents, and marketable securities for both current and non-current together.",28742.48,16035.4,5732.41,6954.69,755,49,7.05,True,6987.1,6987.1,6028.8,0.0,75.1,
 6,2026-08-18T11:33:36.946392+00:00,v2_type_guard,qwen2.5:3b,10,unanswerable,How many iPhones did Apple sell in Q3 fiscal 2025?,"Not mentioned in the document (only revenue by category is given, not unit counts)",I couldn't find that in the document.,7463.67,410.86,5911.7,1108.92,923,10,9.02,False,6357.3,6378.0,6379.2,20.7,79.5,
+1,2026-08-18T11:59:20.099602+00:00,v2_type_guard,phi3,7,comparison,Which grew faster year-over-year in Q3 fiscal 2025: Services revenue or Products revenue?,"Services revenue grew faster, from $24,213M to $27,423M (about 13%), versus Products revenue growing from $61,564M to $66,613M (about 8%)",3,"To determine which grew faster year-over-year in Q3 fiscal 2025, we need to compare the growth rates of Services revenue and Products revenue. However, the provided context does not give specific year-over-year growth percentages for either Services revenue or Products revenue. It only provides the total revenue figures for the quarter and a statement about the growth in iPhone, Mac, and Services, as well as the introduction of new software design and features.
+
+Since the growth rates are not provided in the document, I couldn't find that in the document. To answer this question accurately, we would need the year-over-year growth percentages for both Services revenue and Products revenue.",82242.85,14798.61,9071.2,58226.58,789,157,2.7,True,5825.7,8028.2,7077.7,2202.5,88.2,
+2,2026-08-18T12:00:03.270168+00:00,v2_type_guard,phi3,7,comparison,Which grew faster year-over-year in Q3 fiscal 2025: Services revenue or Products revenue?,"Services revenue grew faster, from $24,213M to $27,423M (about 13%), versus Products revenue growing from $61,564M to $66,613M (about 8%)",5,"To determine which grew faster year-over-year in Q3 fiscal 2025, we need to compare the growth rates of Services revenue and Products revenue. However, the provided context does not give specific year-over-year growth percentages for either Services revenue or Products revenue. It only provides the total revenue figures for the quarter and a statement about the growth in iPhone, Mac, and Services, as well as the introduction of new software design and features.
+
+Therefore, I couldn't find that in the document.",38210.83,171.23,282.33,37724.85,789,119,3.15,False,7449.6,7638.7,7635.0,189.1,95.1,
+3,2026-08-18T12:00:21.245360+00:00,v2_type_guard,phi3,9,multi-hop,"What was Apple's total cash, cash equivalents and marketable securities (current + non-current) as of June 28, 2025?","Cash and cash equivalents ($36,269M) plus current marketable securities ($19,103M) plus non-current marketable securities ($77,614M) = $132,986 million",3,I couldn't find that in the document.,16511.67,1209.05,7994.49,5934.97,865,11,1.85,True,7649.0,7776.1,7695.4,127.1,95.9,
+4,2026-08-18T12:00:28.264544+00:00,v2_type_guard,phi3,9,multi-hop,"What was Apple's total cash, cash equivalents and marketable securities (current + non-current) as of June 28, 2025?","Cash and cash equivalents ($36,269M) plus current marketable securities ($19,103M) plus non-current marketable securities ($77,614M) = $132,986 million",5,I couldn't find that in the document.,6775.56,103.81,214.65,6436.05,865,11,1.71,False,7696.2,7703.9,7697.7,7.7,95.9,
+5,2026-08-18T12:01:16.813131+00:00,v2_type_guard,llama3.2:3b,7,comparison,Which grew faster year-over-year in Q3 fiscal 2025: Services revenue or Products revenue?,"Services revenue grew faster, from $24,213M to $27,423M (about 13%), versus Products revenue growing from $61,564M to $66,613M (about 8%)",3,"To answer your question, let's look at the context provided in Exhibit 99.1. According to the document, Services revenue grew 10 percent year-over-year, while Products revenue grew 10 percent year-over-year as well. Since both grew at the same rate, it's not possible to say which one grew faster.",48239.1,23205.6,5724.69,19289.36,613,67,3.47,True,7702.9,7716.3,6199.6,13.4,77.2,
+6,2026-08-18T12:01:55.411641+00:00,v2_type_guard,llama3.2:3b,7,comparison,Which grew faster year-over-year in Q3 fiscal 2025: Services revenue or Products revenue?,"Services revenue grew faster, from $24,213M to $27,423M (about 13%), versus Products revenue growing from $61,564M to $66,613M (about 8%)",5,"To answer your question, let's look at the context provided in Exhibit 99.1. According to the document, Services revenue reached a new all-time high, growing by 10 percent year-over-year, while Products revenue grew by 39,803 to 43,620, which is an increase of 8,777 units. However, the document does not provide a year-over-year growth rate for Products revenue.
+
+Since the document only provides a year-over-year growth rate for Services revenue, we can conclude that Services revenue grew faster year-over-year in Q3 fiscal 2025.",36353.73,2964.43,570.09,32784.41,613,120,3.66,True,6492.5,6730.7,6708.0,238.2,83.5,
+7,2026-08-18T12:03:12.770024+00:00,v2_type_guard,llama3.2:3b,9,multi-hop,"What was Apple's total cash, cash equivalents and marketable securities (current + non-current) as of June 28, 2025?","Cash and cash equivalents ($36,269M) plus current marketable securities ($19,103M) plus non-current marketable securities ($77,614M) = $132,986 million",3,"To find the total cash, cash equivalents, and marketable securities as of June 28, 2025, we need to add the current and non-current values.
+
+According to the document, the current assets include:
+
+- Cash and cash equivalents: $36,269
+- Marketable securities: $19,103
+- Accounts receivable, net: $27,557
+- Vendor non-trade receivables: $19,278
+- Inventories: $5,925
+- Other current assets: $14,359
+
+Total current assets: $122,491
+
+The non-current assets are not explicitly listed in the document, but we can infer that the non-current assets are the remaining assets after subtracting the current assets from the total assets. However, the document does not provide the total assets figure.
+
+Therefore, I couldn't find the total cash, cash equivalents, and marketable securities as of June 28, 2025, in the document.",76657.13,3100.84,3819.37,69522.63,657,198,2.85,True,6710.4,7303.1,6993.9,592.7,87.1,
+8,2026-08-18T12:04:19.206520+00:00,v2_type_guard,llama3.2:3b,9,multi-hop,"What was Apple's total cash, cash equivalents and marketable securities (current + non-current) as of June 28, 2025?","Cash and cash equivalents ($36,269M) plus current marketable securities ($19,103M) plus non-current marketable securities ($77,614M) = $132,986 million",5,"To find the total cash, cash equivalents, and marketable securities as of June 28, 2025, we need to add the current and non-current values.
+
+According to the document, the current assets include:
+
+- Cash and cash equivalents: $36,269
+- Marketable securities: $19,103
+- Accounts receivable, net: $27,557
+- Vendor non-trade receivables: $19,278
+- Inventories: $5,925
+- Other current assets: $14,359
+
+Total current assets: $122,491
+
+The non-current assets include:
+
+- Marketable securities: $19,103
+
+Total non-current assets: $19,103
+
+Now, let's add the total current and non-current assets:
+
+Total cash, cash equivalents, and marketable securities: $122,491 + $19,103 = $141,594
+
+So, Apple's total cash, cash equivalents, and marketable securities (current + non-current) as of June 28, 2025, was $141,594.",65842.73,1024.57,174.25,64632.09,657,220,3.4,True,6994.4,7031.4,6973.3,37.0,86.9,
+9,2026-08-18T12:04:47.403951+00:00,v2_type_guard,qwen2.5:3b,7,comparison,Which grew faster year-over-year in Q3 fiscal 2025: Services revenue or Products revenue?,"Services revenue grew faster, from $24,213M to $27,423M (about 13%), versus Products revenue growing from $61,564M to $66,613M (about 8%)",3,I couldn't find that in the document.,27559.4,17302.37,6074.27,4159.28,735,10,2.4,True,6974.8,6978.6,6022.9,3.8,75.0,
+10,2026-08-18T12:04:51.988662+00:00,v2_type_guard,qwen2.5:3b,7,comparison,Which grew faster year-over-year in Q3 fiscal 2025: Services revenue or Products revenue?,"Services revenue grew faster, from $24,213M to $27,423M (about 13%), versus Products revenue growing from $61,564M to $66,613M (about 8%)",5,I couldn't find that in the document.,1802.67,627.65,125.36,1036.49,735,10,9.65,False,6332.5,6342.2,6307.8,9.7,78.6,
+11,2026-08-18T12:05:15.849234+00:00,v2_type_guard,qwen2.5:3b,9,multi-hop,"What was Apple's total cash, cash equivalents and marketable securities (current + non-current) as of June 28, 2025?","Cash and cash equivalents ($36,269M) plus current marketable securities ($19,103M) plus non-current marketable securities ($77,614M) = $132,986 million",3,"I couldn't find that in the document. The document provides information about Apple's current assets and non-current assets, but it does not provide a total for cash, cash equivalents, and marketable securities for both current and non-current together.",23402.26,1407.09,9242.53,12620.43,755,49,3.88,True,6307.1,6370.8,6365.5,63.7,79.3,
+12,2026-08-18T12:05:27.749038+00:00,v2_type_guard,qwen2.5:3b,9,multi-hop,"What was Apple's total cash, cash equivalents and marketable securities (current + non-current) as of June 28, 2025?","Cash and cash equivalents ($36,269M) plus current marketable securities ($19,103M) plus non-current marketable securities ($77,614M) = $132,986 million",5,"I couldn't find that in the document. The document provides information about Apple's current assets and non-current assets, but it does not provide a total for cash, cash equivalents, and marketable securities for both current and non-current together.",11327.84,929.31,162.64,10209.64,755,49,4.8,False,6362.6,6445.7,6444.7,83.2,80.3,

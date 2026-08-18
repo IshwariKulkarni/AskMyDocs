@@ -17,7 +17,7 @@ PROMPT_VERSION = "v2_type_guard"  # manually update this whenever main.py's prom
 
 CSV_FIELDS = [
     "run_id", "timestamp","prompt_version" ,"model_name", "question_id", "question_category",
-    "question", "expected_answer", "answer",
+    "question", "expected_answer", "k","answer",
     "total_duration_ms", "load_duration_ms", "prompt_eval_duration_ms",
     "generation_duration_ms", "prompt_tokens", "output_tokens",
     "tokens_per_second", "is_cold_start",
@@ -34,11 +34,11 @@ def load_questions(limit=None, only_ids=None):
     return questions[:limit] if limit else questions
 
 
-def call_ask_endpoint(question_text, model_name):
+def call_ask_endpoint(question_text, model_name, k=3):
     try:
         response = requests.post(
             API_URL,
-            json={"question": question_text, "model": model_name},
+            json={"question": question_text, "model": model_name, "k":k},
             timeout=180 
         )
         response.raise_for_status()
@@ -47,7 +47,7 @@ def call_ask_endpoint(question_text, model_name):
         return None, str(e)
 
 
-def run_benchmark(questions, models, runs_per_question):
+def run_benchmark(questions, models, runs_per_question, k_values):
     results = []
     run_id = 0
 
@@ -55,20 +55,40 @@ def run_benchmark(questions, models, runs_per_question):
         print(f"\n{'='*50}\nMODEL: {model_name}\n{'='*50}")
 
         for q in questions:
-            for run_num in range(1, runs_per_question + 1):
-                run_id += 1
-                print(f"[{run_id}] {model_name} | Q{q['id']} ({q['category']}) | run {run_num}...")
+            for k in k_values:
+                for run_num in range(1, runs_per_question + 1):
+                    run_id += 1
+                    print(f"[{run_id}] {model_name} | Q{q['id']} ({q['category']}) | run {run_num}...")
 
-                start_time = time.time()
-                data, error = call_ask_endpoint(q["question"], model_name)
-                elapsed = time.time() - start_time
+                    start_time = time.time()
+                    data, error = call_ask_endpoint(q["question"], model_name)
+                    elapsed = time.time() - start_time
 
-                system_ram_percent = psutil.virtual_memory().percent
+                    system_ram_percent = psutil.virtual_memory().percent
 
-                if error:
-                    print(f"    ERROR: {error}")
-                    row = {field: "" for field in CSV_FIELDS}
-                    row.update({
+                    if error:
+                        print(f"    ERROR: {error}")
+                        row = {field: "" for field in CSV_FIELDS}
+                        row.update({
+                            "run_id": run_id,
+                            "timestamp": datetime.now(timezone.utc).isoformat(),
+                            "prompt_version": PROMPT_VERSION,
+                            "model_name": model_name,
+                            "question_id": q["id"],
+                            "question_category": q["category"],
+                            "question": q["question"],
+                            "expected_answer": q.get("expected_answer", ""),
+                            "k":k,
+                            "system_ram_percent_used": system_ram_percent,
+                            "error": error
+                        })
+                        results.append(row)
+                        continue
+
+                    metrics = data.get("metrics", {})
+                    resources = data.get("resources", {})
+
+                    row = {
                         "run_id": run_id,
                         "timestamp": datetime.now(timezone.utc).isoformat(),
                         "prompt_version": PROMPT_VERSION,
@@ -77,44 +97,27 @@ def run_benchmark(questions, models, runs_per_question):
                         "question_category": q["category"],
                         "question": q["question"],
                         "expected_answer": q.get("expected_answer", ""),
+                        "answer": data.get("answer", ""),
+                        "k":k,
+                        "total_duration_ms": metrics.get("total_duration_ms"),
+                        "load_duration_ms": metrics.get("load_duration_ms"),
+                        "prompt_eval_duration_ms": metrics.get("prompt_eval_duration_ms"),
+                        "generation_duration_ms": metrics.get("generation_duration_ms"),
+                        "prompt_tokens": metrics.get("prompt_tokens"),
+                        "output_tokens": metrics.get("output_tokens"),
+                        "tokens_per_second": metrics.get("tokens_per_second"),
+                        "is_cold_start": metrics.get("is_cold_start"),
+                        "ram_before_mb": resources.get("ram_before_mb"),
+                        "peak_ram_mb": resources.get("peak_ram_mb"),
+                        "ram_after_mb": resources.get("ram_after_mb"),
+                        "ram_delta_mb": resources.get("ram_delta_mb"),
                         "system_ram_percent_used": system_ram_percent,
-                        "error": error
-                    })
+                        "error": ""
+                    }
                     results.append(row)
-                    continue
-
-                metrics = data.get("metrics", {})
-                resources = data.get("resources", {})
-
-                row = {
-                    "run_id": run_id,
-                    "timestamp": datetime.now(timezone.utc).isoformat(),
-                    "prompt_version": PROMPT_VERSION,
-                    "model_name": model_name,
-                    "question_id": q["id"],
-                    "question_category": q["category"],
-                    "question": q["question"],
-                    "expected_answer": q.get("expected_answer", ""),
-                    "answer": data.get("answer", ""),
-                    "total_duration_ms": metrics.get("total_duration_ms"),
-                    "load_duration_ms": metrics.get("load_duration_ms"),
-                    "prompt_eval_duration_ms": metrics.get("prompt_eval_duration_ms"),
-                    "generation_duration_ms": metrics.get("generation_duration_ms"),
-                    "prompt_tokens": metrics.get("prompt_tokens"),
-                    "output_tokens": metrics.get("output_tokens"),
-                    "tokens_per_second": metrics.get("tokens_per_second"),
-                    "is_cold_start": metrics.get("is_cold_start"),
-                    "ram_before_mb": resources.get("ram_before_mb"),
-                    "peak_ram_mb": resources.get("peak_ram_mb"),
-                    "ram_after_mb": resources.get("ram_after_mb"),
-                    "ram_delta_mb": resources.get("ram_delta_mb"),
-                    "system_ram_percent_used": system_ram_percent,
-                    "error": ""
-                }
-                results.append(row)
-                print(f"    OK — {elapsed:.1f}s wall clock, "
-                      f"{metrics.get('tokens_per_second', '?')} tok/s, "
-                      f"cold={metrics.get('is_cold_start')}")
+                    print(f"    OK — {elapsed:.1f}s wall clock, "
+                        f"{metrics.get('tokens_per_second', '?')} tok/s, "
+                        f"cold={metrics.get('is_cold_start')}")
 
     return results
 
@@ -130,8 +133,8 @@ def save_results(results, path):
 
 
 if __name__ == "__main__":
-    questions = load_questions(only_ids=[9, 10])
+    questions = load_questions(only_ids=[7, 9])
     models_to_test = ["phi3", "llama3.2:3b", "qwen2.5:3b"]
 
-    results = run_benchmark(questions, models_to_test, runs_per_question=1)
+    results = run_benchmark(questions, models_to_test, runs_per_question=1,k_values=[3, 5])
     save_results(results, RESULTS_PATH)

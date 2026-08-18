@@ -134,7 +134,8 @@ Answer:"""
             "prompt_tokens": prompt_tokens,
             "output_tokens": output_tokens,
             "tokens_per_second": round(tokens_per_second, 2),
-            "is_cold_start": is_cold_start
+            "is_cold_start": is_cold_start,
+            "k":k
         },
         "resources":{
             "ram_before_mb": round(ram_before_mb, 1),
