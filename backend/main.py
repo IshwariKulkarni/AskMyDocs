@@ -7,6 +7,9 @@ from langchain_community.vectorstores import Chroma
 from langchain_core.prompts import PromptTemplate
 import shutil, os
 import ollama 
+import psutil
+import threading
+import time
 
 app = FastAPI()
 
@@ -60,6 +63,22 @@ Question: {question}
 
 Answer:"""
 
+     # ---- RAM tracking setup ----
+    ram_before_mb = psutil.virtual_memory().used / (1024 * 1024)
+    peak_ram_mb = ram_before_mb
+    stop_sampling = threading.Event()
+
+    def sample_ram():
+        nonlocal peak_ram_mb
+        while not stop_sampling.is_set():
+            current = psutil.virtual_memory().used / (1024 * 1024)
+            if current > peak_ram_mb:
+                peak_ram_mb = current
+            time.sleep(0.2)  # sample every 200ms
+
+    sampler_thread = threading.Thread(target=sample_ram)
+    sampler_thread.start()
+
     # llm = OllamaLLM(model="phi3", temperature=0)
     # answer = llm.invoke(prompt)
     # return {"answer": answer}
@@ -69,6 +88,11 @@ Answer:"""
         prompt = prompt,
         options = {"temperature":0}
     )
+
+     # ---- Stop RAM sampling ----
+    stop_sampling.set()
+    sampler_thread.join()
+    ram_after_mb = psutil.virtual_memory().used / (1024 * 1024)
 
     total_duration_ms = response.get("total_duration", 0) / 1_000_000
     load_duration_ms = response.get("load_duration", 0) / 1_000_000
@@ -82,6 +106,8 @@ Answer:"""
         if eval_duration_ms > 0 else 0
     )
 
+    is_cold_start = load_duration_ms > 1000
+
     return {
         "answer": response["response"],
         "model": model_name,
@@ -92,6 +118,13 @@ Answer:"""
             "generation_duration_ms": round(eval_duration_ms, 2),
             "prompt_tokens": prompt_tokens,
             "output_tokens": output_tokens,
-            "tokens_per_second": round(tokens_per_second, 2)
+            "tokens_per_second": round(tokens_per_second, 2),
+            "is_cold_start": is_cold_start
+        },
+        "resources":{
+            "ram_before_mb": round(ram_before_mb, 1),
+            "peak_ram_mb": round(peak_ram_mb, 1),
+            "ram_after_mb": round(ram_after_mb, 1),
+            "ram_delta_mb": round(peak_ram_mb - ram_before_mb, 1)
         }
     }
