@@ -19,7 +19,15 @@ app.add_middleware(CORSMiddleware,
 
 os.makedirs("uploads", exist_ok=True)
 embeddings = OllamaEmbeddings(model="nomic-embed-text")
-db = None
+#db = None
+CHROMA_DIR = "chroma_db"
+
+if os.path.exists(CHROMA_DIR) and os.listdir(CHROMA_DIR):
+    db = Chroma(persist_directory=CHROMA_DIR, embedding_function=embeddings)
+    print(f"Loaded existing Chroma DB from '{CHROMA_DIR}'")
+else:
+    db = None
+    print("No existing Chroma DB found — waiting for /upload")
 
 @app.post("/upload")
 async def upload_pdf(file: UploadFile = File(...)):
@@ -32,7 +40,7 @@ async def upload_pdf(file: UploadFile = File(...)):
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=500, chunk_overlap=50)
     chunks = splitter.split_documents(docs)
-    db = Chroma.from_documents(chunks, embeddings)
+    db = Chroma.from_documents(chunks, embeddings, persist_directory=CHROMA_DIR)
     return {"message": f"Indexed {len(chunks)} chunks"}
 
 @app.post("/ask")

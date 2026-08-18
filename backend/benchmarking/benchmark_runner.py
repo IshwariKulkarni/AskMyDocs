@@ -125,7 +125,7 @@ def save_results(results, path):
 
 
 if __name__ == "__main__":
-    questions = load_questions(limit=2)
+    questions = load_questions()
     models_to_test = ["phi3", "llama3.2:3b", "qwen2.5:3b"]
 
     results = run_benchmark(questions, models_to_test, runs_per_question=1)
