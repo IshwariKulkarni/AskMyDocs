@@ -13,9 +13,10 @@ RESULTS_PATH = os.path.join(os.path.dirname(__file__), "..", "results", "benchma
 
 MODELS = ["phi3", "llama3.2:3b", "qwen2.5:3b"]
 RUNS_PER_QUESTION = 1  
+PROMPT_VERSION = "v2_type_guard"  # manually update this whenever main.py's prompt changes
 
 CSV_FIELDS = [
-    "run_id", "timestamp", "model_name", "question_id", "question_category",
+    "run_id", "timestamp","prompt_version" ,"model_name", "question_id", "question_category",
     "question", "expected_answer", "answer",
     "total_duration_ms", "load_duration_ms", "prompt_eval_duration_ms",
     "generation_duration_ms", "prompt_tokens", "output_tokens",
@@ -25,9 +26,11 @@ CSV_FIELDS = [
 ]
 
 
-def load_questions(limit=None):
+def load_questions(limit=None, only_ids=None):
     with open(QUESTIONS_PATH, "r") as f:
         questions = json.load(f)
+    if only_ids:
+        questions = [q for q in questions if q["id"] in only_ids]
     return questions[:limit] if limit else questions
 
 
@@ -68,6 +71,7 @@ def run_benchmark(questions, models, runs_per_question):
                     row.update({
                         "run_id": run_id,
                         "timestamp": datetime.now(timezone.utc).isoformat(),
+                        "prompt_version": PROMPT_VERSION,
                         "model_name": model_name,
                         "question_id": q["id"],
                         "question_category": q["category"],
@@ -85,6 +89,7 @@ def run_benchmark(questions, models, runs_per_question):
                 row = {
                     "run_id": run_id,
                     "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "prompt_version": PROMPT_VERSION,
                     "model_name": model_name,
                     "question_id": q["id"],
                     "question_category": q["category"],
@@ -125,7 +130,7 @@ def save_results(results, path):
 
 
 if __name__ == "__main__":
-    questions = load_questions()
+    questions = load_questions(only_ids=[9, 10])
     models_to_test = ["phi3", "llama3.2:3b", "qwen2.5:3b"]
 
     results = run_benchmark(questions, models_to_test, runs_per_question=1)

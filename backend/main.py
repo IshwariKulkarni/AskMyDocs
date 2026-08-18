@@ -50,7 +50,8 @@ async def ask_question(body: dict):
 
     question = body["question"]
     model_name = body.get("model", "phi3")
-    relevant_chunks = db.similarity_search(question, k=3)
+    k = body.get("k",3)
+    relevant_chunks = db.similarity_search(question, k=k)
     context = "\n\n".join([chunk.page_content for chunk in relevant_chunks])
 
     # DEBUG PRINTS
@@ -63,6 +64,12 @@ async def ask_question(body: dict):
 If the question is a greeting or general query (like "can you help me?"), acknowledge it and invite them to ask specific 
 questions about the document content. Use the following context from a document to answer the question.
 If the answer is not in the context, say "I couldn't find that in the document."
+
+Pay close attention to what TYPE of information the question is asking for (for example: a dollar amount, 
+a percentage, a count of units or items, a date, or a person's name). If the context contains a figure of a 
+DIFFERENT type than what was asked — for example, the question asks how many units were sold, but the context 
+only contains a revenue figure in dollars — do NOT substitute that different figure as if it answers the question. 
+In that case, say "I couldn't find that in the document."
 
 Context:
 {context}

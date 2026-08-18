@@ -155,3 +155,32 @@ These highlights are mentioned in the press release attached to the document as 
 34,2026-08-18T10:53:54.734501+00:00,qwen2.5:3b,10,unanswerable,How many iPhones did Apple sell in Q3 fiscal 2025?,"Not mentioned in the document (only revenue by category is given, not unit counts)","According to the context provided, Apple's iPhone revenue for the third quarter (ended June 28, 2025) was $44,582 million. Therefore, Apple sold iPhones worth $44,582 million in the third quarter of fiscal 2025.",16908.67,529.3,6448.93,9892.55,811,64,6.47,False,6312.2,6330.9,6301.1,18.6,78.5,
 35,2026-08-18T10:54:00.306836+00:00,qwen2.5:3b,11,unanswerable,Who is Apple's Chief Marketing Officer?,Not mentioned in the document,I couldn't find that in the document.,5396.54,510.56,3741.85,1115.61,450,10,8.96,False,6315.8,6331.7,6323.9,15.9,78.8,
 36,2026-08-18T10:54:05.908108+00:00,qwen2.5:3b,12,unanswerable,What is Apple's projected revenue for Q4 fiscal 2025?,Not mentioned in the document (no forward guidance figures are given),I couldn't find that in the document.,5224.82,496.16,3625.31,1074.65,606,10,9.31,False,6324.4,6334.8,6329.0,10.4,78.8,
+1,2026-08-18T11:31:31.090884+00:00,v2_type_guard,phi3,9,multi-hop,"What was Apple's total cash, cash equivalents and marketable securities (current + non-current) as of June 28, 2025?","Cash and cash equivalents ($36,269M) plus current marketable securities ($19,103M) plus non-current marketable securities ($77,614M) = $132,986 million",I couldn't find that in the document.,20708.56,10165.69,8875.05,1634.32,865,11,6.73,True,6066.7,8026.9,7217.4,1960.2,90.0,
+2,2026-08-18T11:31:43.172012+00:00,v2_type_guard,phi3,10,unanswerable,How many iPhones did Apple sell in Q3 fiscal 2025?,"Not mentioned in the document (only revenue by category is given, not unit counts)",I couldn't find that in the document.,10286.39,211.69,8018.89,1816.2,993,11,6.06,False,7599.5,7799.9,7703.4,200.4,96.0,
+3,2026-08-18T11:32:40.086261+00:00,v2_type_guard,llama3.2:3b,9,multi-hop,"What was Apple's total cash, cash equivalents and marketable securities (current + non-current) as of June 28, 2025?","Cash and cash equivalents ($36,269M) plus current marketable securities ($19,103M) plus non-current marketable securities ($77,614M) = $132,986 million","To find the total cash, cash equivalents, and marketable securities as of June 28, 2025, we need to add the current and non-current values.
+
+According to the document, the current assets include:
+
+- Cash and cash equivalents: $36,269
+- Marketable securities: $19,103
+- Accounts receivable, net: $27,557
+- Vendor non-trade receivables: $19,278
+- Inventories: $5,925
+- Other current assets: $14,359
+
+Total current assets: $122,491
+
+The non-current assets include:
+
+- Marketable securities: $19,103
+
+Total non-current assets: $19,103
+
+Now, let's add the total current and non-current assets:
+
+Total cash, cash equivalents, and marketable securities: $122,491 + $19,103 = $141,594
+
+So, Apple's total cash, cash equivalents, and marketable securities (current + non-current) as of June 28, 2025, was $141,594.",56743.18,16240.38,5664.23,34818.93,657,220,6.32,True,7724.4,7747.2,6612.6,22.8,82.4,
+4,2026-08-18T11:32:58.646264+00:00,v2_type_guard,llama3.2:3b,10,unanswerable,How many iPhones did Apple sell in Q3 fiscal 2025?,"Not mentioned in the document (only revenue by category is given, not unit counts)","I couldn't find that in the document. The document mentions the number of iPhones sold in the previous quarter (Q3 fiscal 2024) and the total number of iPhones sold for the nine months ended June 28, 2025, but it does not provide the exact number of iPhones sold in Q3 fiscal 2025.",17130.19,426.16,4106.81,12542.77,725,69,5.5,False,6916.1,7043.3,6985.9,127.2,87.0,
+5,2026-08-18T11:33:27.702612+00:00,v2_type_guard,qwen2.5:3b,9,multi-hop,"What was Apple's total cash, cash equivalents and marketable securities (current + non-current) as of June 28, 2025?","Cash and cash equivalents ($36,269M) plus current marketable securities ($19,103M) plus non-current marketable securities ($77,614M) = $132,986 million","I couldn't find that in the document. The document provides information about Apple's current assets and non-current assets, but it does not provide a total for cash, cash equivalents, and marketable securities for both current and non-current together.",28742.48,16035.4,5732.41,6954.69,755,49,7.05,True,6987.1,6987.1,6028.8,0.0,75.1,
+6,2026-08-18T11:33:36.946392+00:00,v2_type_guard,qwen2.5:3b,10,unanswerable,How many iPhones did Apple sell in Q3 fiscal 2025?,"Not mentioned in the document (only revenue by category is given, not unit counts)",I couldn't find that in the document.,7463.67,410.86,5911.7,1108.92,923,10,9.02,False,6357.3,6378.0,6379.2,20.7,79.5,
