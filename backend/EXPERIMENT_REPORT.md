@@ -44,7 +44,7 @@ To ensure any difference in output was attributable to the *model* and not the p
 ### 3.3 Test Data
 
 - **Document:** Apple Inc. Q3 FY2025 earnings press release (8 pages, real SEC filing).
-- **Question set:** 12 hand-written questions, each independently verified against the source text, spanning six categories: factual lookup, comparison, summarization, multi-hop reasoning, and - critically - questions with **no answer present in the document**, used specifically to test hallucination.
+- **Question set:** 12 hand-written questions, each independently verified against the source text, spanning six categories: factual lookup, comparison, summarization, multi-hop reasoning, and critically - questions with **no answer present in the document**, used specifically to test hallucination.
 - **Models:** `phi3` (3.8B, Microsoft), `llama3.2:3b` (Meta), `qwen2.5:3b` (Alibaba) - the largest models realistically operable on 8GB of RAM.
 - **Hardware:** Intel i5-10210U laptop, 8GB DDR4 RAM, 2GB dedicated GPU - deliberately modest, representative hardware rather than a workstation.
 
@@ -54,7 +54,7 @@ To ensure any difference in output was attributable to the *model* and not the p
 
 ### 4.1 Accuracy alone did not differentiate the models
 
-All three models answered 7 of 12 questions correctly. Had the experiment stopped there, the conclusion would have been "the models are interchangeable" - which turned out to be false. Breaking down the remaining five questions by *how* each model failed revealed the real differences:
+All three models answered 7 of 12 questions correctly. Had the experiment stopped there, the conclusion would have been "the models are interchangeable" which turned out to be false. Breaking down the remaining five questions by *how* each model failed revealed the real differences:
 
 ![Outcome breakdown per model](charts/1_outcome_breakdown.png)
 
@@ -66,7 +66,7 @@ The full 12-question benchmark was run twice, independently, on different days w
 
 ![Speed comparison across two runs](charts/2_speed_comparison.png)
 
-The ranking held across both runs: `qwen2.5:3b` was fastest (≈7.5 tokens/sec), `phi3` slowest (≈5.1 tokens/sec). Notably, cold-start load time was found to dominate response time by as much as **12x** compared to warm inference on identical requests - a factor a naive single-run benchmark would completely miss, and one that materially changes what "fast" means in a real, session-based application.
+The ranking held across both runs: `qwen2.5:3b` was fastest (≈7.5 tokens/sec), `phi3` slowest (≈5.1 tokens/sec). Notably, cold-start load time was found to dominate response time by as much as **12x** compared to warm inference on identical requests, a factor a naive single-run benchmark would completely miss, and one that materially changes what "fast" means in a real, session-based application.
 
 ### 4.3 A reproducible hallucination pattern, and a partial fix
 
@@ -78,7 +78,7 @@ I added one targeted instruction - requiring the model to check whether a retrie
 
 ![Prompt fix before and after](charts/3_prompt_fix_before_after.png)
 
-The fix eliminated the hallucination for `phi3` and `qwen2.5:3b`, and — unexpectedly — also fixed a second, unrelated hallucination on a comparison question I had not specifically targeted. For `llama3.2:3b`, the outcome was mixed: it stopped hallucinating on the original question, but began fabricating a confident, wrong answer on a different multi-hop question it had previously declined safely. Investigating its retrieved context showed the actual cause: the figure it needed was never retrieved in the first place. **The prompt fix could correct a reasoning error, but it could not fix missing data** - and for this model, being instructed to reason more carefully appears to have made it more willing to guess rather than more cautious.
+The fix eliminated the hallucination for `phi3` and `qwen2.5:3b`, and — unexpectedly — also fixed a second, unrelated hallucination on a comparison question I had not specifically targeted. For `llama3.2:3b`, the outcome was mixed: it stopped hallucinating on the original question, but began fabricating a confident, wrong answer on a different multi-hop question it had previously declined safely. Investigating its retrieved context showed the actual cause: the figure it needed was never retrieved in the first place. **The prompt fix could correct a reasoning error, but it could not fix missing data** and for this model, being instructed to reason more carefully appears to have made it more willing to guess rather than more cautious.
 
 I additionally tested whether retrieving more context (`k=5` instead of `k=3`) would close this gap. It did not change the outcome for either model whose behavior could be trusted run-to-run; a useful negative result indicating the bottleneck is more likely in how tabular financial data is chunked from the PDF, not in retrieval breadth.
 
@@ -86,7 +86,7 @@ I additionally tested whether retrieving more context (`k=5` instead of `k=3`) w
 
 ![Model comparison summary](charts/4_comparison_table.png)
 
-No single model is objectively "best", the ranking depends on what is weighted more heavily. Under a 50/50 speed-versus-groundedness weighting, `qwen2.5:3b` scores highest; weighting groundedness more heavily would rank `llama3.2:3b` first instead, since it hallucinated least. Both are defensible choices depending on the deployment context - a customer-facing financial assistant should likely weight groundedness far more heavily than raw speed.
+No single model is objectively "best", the ranking depends on what is weighted more heavily. Under a 50/50 speed-versus-groundedness weighting, `qwen2.5:3b` scores highest; weighting groundedness more heavily would rank `llama3.2:3b` first instead, since it hallucinated least. Both are defensible choices depending on the deployment context. A customer-facing financial assistant should likely weight groundedness far more heavily than raw speed.
 
 ---
 
