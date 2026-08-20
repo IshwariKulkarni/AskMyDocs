@@ -95,7 +95,7 @@ No single model is objectively "best", the ranking depends on what is weighted m
 An engineering report is incomplete without the failures. This project involved several, each of which changed the methodology.
 
 **Problem: the application crashed when indexing a large, table-heavy PDF.**
-An initial 35-page financial document caused a full system crash on the 8GB laptop during chunking/embedding. Rather than pushing forward on faulty infrastructure, I retired that document and switched to a shorter, structurally similar 8-page filing a deliberate scope reduction to keep the experiment stable, documented as a limitation rather than hidden.
+An initial 35-page financial document caused a full system crash on the 8GB laptop when asked questions on that PDF. Rather than pushing forward on faulty infrastructure, I switched to a shorter, structurally similar 8-page filing a deliberate scope reduction to keep the experiment stable, documented as a limitation rather than hidden.
 
 **Problem: the vector database silently reset on every server restart.**
 The Chroma index was held in memory only. Every backend reload (including automatic ones during development) wiped it, causing multiple failed benchmark runs that silently returned "please upload a PDF first" instead of real answers. This was fixed by persisting the index to disk and loading it automatically on startup, then validated with an explicit restart-and-query test with no re-upload.
