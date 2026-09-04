@@ -4,6 +4,8 @@ A RAG (Retrieval-Augmented Generation) powered document Q&A app. Upload any PDF 
 
 Built with FastAPI, LangChain, ChromaDB, Ollama, and React.js.
 
+This PDF question-answering system was later used as a testbed to benchmark 3 small open-weight models under identical conditions. Full write-up: [EXPERIMENT_REPORT.md](backend/EXPERIMENT_REPORT.md)
+
 ---
 
 ## What it does
