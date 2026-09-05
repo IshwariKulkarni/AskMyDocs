@@ -18,15 +18,12 @@ RUN2_END = datetime.fromisoformat("2026-08-18T10:22:00+00:00")
 embeddings = OllamaEmbeddings(model="nomic-embed-text")
 db = Chroma(persist_directory=CHROMA_DIR, embedding_function=embeddings)
 
-# Maps your manual labels onto the judge's 4 categories, so both sides speak the
-# same language when compared. "partial" and "non_answer" are treated as their own
-# bucket rather than forced into hallucinated/correct, since neither is really either.
 MANUAL_TO_JUDGE_BUCKET = {
     "correct": "correct",
     "safe_miss": "correct_decline",
     "hallucinated": "hallucinated",
-    "partial": "partial",       # no direct judge equivalent — tracked separately below
-    "non_answer": "non_answer", # no direct judge equivalent — tracked separately below
+    "partial": "partial",
+    "non_answer": "non_answer",
 }
 
 
@@ -48,6 +45,20 @@ def load_run2_rows(csv_path):
     return rows_by_key
 
 
+def check_agreement(entry, row, judge_category):
+    """Returns True/False, with a special case for unanswerable questions: your manual
+    "correct" label and the judge's "correct_decline" both describe the same outcome —
+    the model correctly said the info wasn't there, which IS the expected answer for
+    these specific questions. Without this, the comparison treats them as a mismatch
+    purely because they're spelled differently."""
+    manual_bucket = MANUAL_TO_JUDGE_BUCKET[entry["manual_label"]]
+
+    if row["question_category"] == "unanswerable" and manual_bucket == "correct":
+        return judge_category in ("correct", "correct_decline")
+
+    return manual_bucket == judge_category
+
+
 def main():
     print("Loading Run 2 rows from CSV...")
     rows_by_key = load_run2_rows(CSV_PATH)
@@ -56,10 +67,10 @@ def main():
     context_cache = {}
 
     agreements = 0
-    comparable_total = 0  # excludes "partial"/"non_answer" rows from the strict agreement %
+    comparable_total = 0
     disagreements = []
     parse_errors = 0
-    uncomparable = []  # partial/non_answer rows, reported separately, not counted as dis/agree
+    uncomparable = []
 
     for entry in CALIBRATION_SET:
         key = (entry["question_id"], entry["model"])
@@ -89,8 +100,6 @@ def main():
         judge_category = result["judge_category"]
 
         if manual_bucket in ("partial", "non_answer"):
-            # These don't map cleanly onto the judge's 4 categories — report what the
-            # judge said, but don't count it toward the strict agreement rate.
             uncomparable.append({
                 "question_id": entry["question_id"],
                 "model": entry["model"],
@@ -103,7 +112,7 @@ def main():
             continue
 
         comparable_total += 1
-        agree = (manual_bucket == judge_category)
+        agree = check_agreement(entry, row, judge_category)
         if agree:
             agreements += 1
         else:
