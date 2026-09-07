@@ -1,6 +1,6 @@
 # Building and Calibrating an Automated LLM-as-a-Judge Evaluator
 
-### An Engineering Report — AskMyDocs Project (Evaluation Methodology)
+### An Engineering Report - AskMyDocs Project (Evaluation Methodology)
 
 ---
 
