@@ -125,3 +125,4 @@ The core engineering takeaway is that **model selection is not the hardest part 
 - The RAM-per-model comparison was intentionally omitted from this report: cold-start memory measurements were contaminated by sequential model loading within the same session, and reporting them would have implied a precision the data does not support.
 - Each experimental condition was run once or twice; broader statistical confidence would require a larger number of repetitions, particularly for the model shown to be non-deterministic.
 - Planned next steps include testing chunking strategy directly (since increasing `k` alone did not resolve the retrieval gap identified in Section 4.3), and extending the question set across additional document types.
+- Manual answer scoring, as described above, was later replaced with a calibrated automated judge for evaluating answers at scale — see EVALUATION_REPORT.md for that methodology and its own findings.
